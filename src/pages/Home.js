@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 
 import supabase from "../config/supabaseClient"
+import RecipeCard from "../components/RecipeCard";
 
 const Home = () => {
   const [error, setError] = useState(null);
@@ -28,10 +29,12 @@ const Home = () => {
     <div className="page home">
       {error && <p>{error}</p>}
       {recipes && (
-        <div>
-          {recipes.map(recipes => (
-            <p>{recipes.title}</p>
-          ))}
+        <div className="recipes">
+          <div className="recipe-grid">
+            {recipes.map(recipes => (
+              <RecipeCard key={recipes.id} data={recipes} />
+            ))}
+          </div>
         </div>
       )}
     </div>
