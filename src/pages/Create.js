@@ -1,6 +1,8 @@
 import { useState } from "react";
-import supabase from "../config/supabaseClient";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from 'react-hot-toast';
+
+import supabase from "../config/supabaseClient";
 
 const Create = () => {
   const [title, setTitle] = useState('');
@@ -27,7 +29,10 @@ const Create = () => {
     }
     if (data) {
       setError(null)
-      navigate("/")
+      toast.success("Product added successfully")
+      setTimeout(() => {
+        navigate("/")
+      }, 2000)
     }
   }
 
@@ -57,6 +62,9 @@ const Create = () => {
         <button>Create a new recipe</button>
       </form>
       {error && <p>{error}</p>}
+      <Toaster
+        position="top-right"
+        reverseOrder={false} />
     </div>
   )
 }

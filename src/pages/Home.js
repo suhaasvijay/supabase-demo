@@ -7,9 +7,17 @@ const Home = () => {
   const [error, setError] = useState(null);
   const [recipes, setRecipes] = useState(null);
 
+  const handleDelete = (id) => {
+    setRecipes(prevRecipes => {
+      return prevRecipes.filter(re => re.id !== id)
+    })
+  }
+
   useEffect(() => {
     const recipe = async () => {
-      const { data, error } = await supabase.from('recipes').select()
+      const { data, error } = await supabase
+        .from('recipes')
+        .select()
 
       if (error) {
         setError("could not fetch recipes")
@@ -18,7 +26,6 @@ const Home = () => {
       }
       if (data) {
         setRecipes(data)
-        console.log(data);
         setError(null)
       }
     }
@@ -32,7 +39,7 @@ const Home = () => {
         <div className="recipes">
           <div className="recipe-grid">
             {recipes.map(recipes => (
-              <RecipeCard key={recipes.id} data={recipes} />
+              <RecipeCard key={recipes.id} recipe={recipes} onDelete={handleDelete} />
             ))}
           </div>
         </div>
