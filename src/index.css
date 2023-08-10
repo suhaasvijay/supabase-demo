@@ -70,7 +70,7 @@ nav h1 {
 
 /* Form */
 form {
-  background-color: darksalmon;
+  background-color: white;
   display: flex;
   flex-direction: column;
   padding: 30px;
@@ -94,8 +94,9 @@ form button {
 
 form input,
 textarea {
+  border-style: dotted;
   height: 30px;
-  border: none;
+  border-color: darkgrey;
   margin-top: 10px;
 }
 
@@ -117,5 +118,16 @@ form label {
 }
 
 .button {
+  cursor: pointer;
+}
+
+.orderBy button {
+  padding: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--primary);
+  color: white;
   cursor: pointer;
 }
