@@ -6,6 +6,7 @@ import RecipeCard from "../components/RecipeCard";
 const Home = () => {
   const [error, setError] = useState(null);
   const [recipes, setRecipes] = useState(null);
+  const [orderBy, setOrderBy] = useState('created_at');
 
   const handleDelete = (id) => {
     setRecipes(prevRecipes => {
@@ -18,6 +19,7 @@ const Home = () => {
       const { data, error } = await supabase
         .from('recipes')
         .select()
+        .order(orderBy, { ascending: false })
 
       if (error) {
         setError("could not fetch recipes")
@@ -30,13 +32,19 @@ const Home = () => {
       }
     }
     recipe()
-  }, [])
+  }, [orderBy])
 
   return (
     <div className="page home">
       {error && <p>{error}</p>}
       {recipes && (
         <div className="recipes">
+          <div className="orderBy">
+            <p>Order By:</p>
+            <button onClick={() => setOrderBy('created_at')}>Created At</button>
+            <button onClick={() => setOrderBy('title')}>Title</button>
+            <button onClick={() => setOrderBy('rating')}>Rating</button>
+          </div>
           <div className="recipe-grid">
             {recipes.map(recipes => (
               <RecipeCard key={recipes.id} recipe={recipes} onDelete={handleDelete} />
